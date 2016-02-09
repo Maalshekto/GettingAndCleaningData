@@ -1,7 +1,7 @@
 ## 
 ## run_analysis.R
 ##
-## This Script execute the 
+## This Script execute the
 ## 
 ## Author   - Thomas MARTIN
 ## Date     - 09/02/2016
@@ -65,11 +65,12 @@ usefulColumnsName <- featuresLabel$V2[usefulColumnsId]
 colnames(xTotal) <- usefulColumnsName
 xTotal <- cbind(xTotal, "subject" = subjectTotal$V1)
 finalDataSet <- cbind(xTotal, "activity" = activities)
-
+rm(xTotal)
 
 ##
 ##  5.From the data set in step 4, creates a second, independent tidy data set with the average 
 ##    of each variable for each activity and each subject.
 ##
-finalDataSet <- group_by(xTotal, activity, subject)
-averageDataSet <- summarise_each(xTotal, funs(mean))
+averageDataSet <- finalDataSet %>%
+  group_by(activity, subject) %>%
+  summarise_each(funs(mean))
