@@ -31,4 +31,4 @@ Here, you will find the list of Files used through the project, unused files are
 
 ## Description of submitted script : run_analysis.R
 
-A complete description of run_analysis.R can be found here : [link](CodeBook.md)
+A complete description of run_analysis.R can be found here : [CodeBook.md](CodeBook.md)
