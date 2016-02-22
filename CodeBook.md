@@ -1,6 +1,6 @@
 ---
 title: "Getting and Cleaning Data Course Project"
-output: pdf_document
+output: html_document
 keep_md: yes
 ---
 
@@ -46,7 +46,7 @@ keep_md: yes
 * **averageDataSet** : independent tidy data set with the average of each variable for each activity and each subject. Obtained from finalDataSet.  
 
 ******
-\pagebreak
+
 
 ## B. Loading and preprocessing the data.
 
@@ -169,7 +169,7 @@ str(subjectTrain)
 ##  $ V1: int  1 1 1 1 1 1 1 1 1 1 ...
 ```
 ******
-\pagebreak
+
 
 ## 1. Merges the training and the test sets to create one data set.
 
@@ -217,7 +217,7 @@ str(subjectTotal)
 ##  $ V1: int  1 1 1 1 1 1 1 1 1 1 ...
 ```
 ******
-\pagebreak
+
 
 ## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 
@@ -247,7 +247,7 @@ str(extractDataTotal, list.len = 10)
 ##   [list output truncated]
 ```
 ******
-\pagebreak
+
 
 ## 3. Uses descriptive activity names to name the activities in the data set.
 
@@ -262,7 +262,7 @@ str(labelledActivitiesTotal)
 ##  chr [1:10299] "STANDING" "STANDING" "STANDING" "STANDING" ...
 ```
 ******
-\pagebreak
+
 
 ## 4. Appropriately labels the data set with descriptive variable names.
 
@@ -312,7 +312,7 @@ str(finalDataSet, list.len = 10)
 ##   [list output truncated]
 ```
 ******
-\pagebreak
+
 
 ## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. Save the result in averageDataSet.txt
 

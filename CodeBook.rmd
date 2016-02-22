@@ -1,6 +1,6 @@
 ---
 title: "Getting and Cleaning Data Course Project"
-output: pdf_document
+output: html_document
 keep_md: yes
 ---
 
@@ -46,7 +46,7 @@ keep_md: yes
 * **averageDataSet** : independent tidy data set with the average of each variable for each activity and each subject. Obtained from finalDataSet.  
 
 ******
-\pagebreak
+
 
 ## B. Loading and preprocessing the data.
 
@@ -90,7 +90,7 @@ subjectTrain <- read.table("train/subject_train.txt", stringsAsFactors = FALSE)
 str(subjectTrain)
 ```
 ******
-\pagebreak
+
 
 ## 1. Merges the training and the test sets to create one data set.
 
@@ -108,7 +108,7 @@ subjectTotal <- rbind(subjectTrain, subjectTest)
 str(subjectTotal)
 ```
 ******
-\pagebreak
+
 
 ## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 
@@ -122,7 +122,7 @@ extractDataTotal <- select(originDataTotal, usefulColumnsId)
 str(extractDataTotal, list.len = 10)
 ```
 ******
-\pagebreak
+
 
 ## 3. Uses descriptive activity names to name the activities in the data set.
 
@@ -132,7 +132,7 @@ labelledActivitiesTotal <- activitiesLabels$V2[activitiesTotal$V1]
 str(labelledActivitiesTotal)
 ``` 
 ******
-\pagebreak
+
 
 ## 4. Appropriately labels the data set with descriptive variable names.
 
@@ -150,7 +150,7 @@ finalDataSet <- cbind(extractDataTotal, "activity" = labelledActivitiesTotal)
 str(finalDataSet, list.len = 10)
 ``` 
 ******
-\pagebreak
+
 
 ## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. Save the result in averageDataSet.txt
 
