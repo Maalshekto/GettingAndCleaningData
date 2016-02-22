@@ -1,0 +1,194 @@
+---
+title: "Getting and Cleaning Data Course Project"
+output: pdf_document
+keep_md: yes
+---
+
+## Files used through the project.
+
+Here, you will find the list of Files used through the project, unused files are not indicated.
+
+### Root directory 
+
+* README.md : this file.
+
+* CodeBook.md : a detailed description of the variables, data. 
+
+* features_info.txt: Shows information about the variables used on the feature vector.
+* features.txt: List of all features.
+* activity_labels.txt: Links the class labels with their activity name.
+
+* run_analysis.R : contains the script to execute for performing data treatment. Result is stored in averageDataSet.txt
+
+* averageDataSet.txt: Final result of the treatment of run_analysis.R 
+
+### Train directory
+* train/X_train.txt: Training set.
+* train/y_train.txt: Training labels.
+
+### Test directory
+* test/X_test.txt: Test set.
+* test/y_test.txt: Test labels.
+
+## B. Used variables and data.
+
+* **originDataColomnsNames** : Contains the column names of the dataset obtained from "features.txt"
+
+* **activitiesLabels** : Contains the activities Labels that will be used in the dataset obtained from "activity_labels.txt"
+
+* **originDataTrain** : Contains the training measurement part of the dataset. Obtained from "train/X_train.txt"
+
+* **originDataTest** : Contains the test measurement part of the dataset.  Obtained from "test/X_test.txt"
+
+* **activitiesTrain** : Contains the list of activities corresponding to training measurement part of the dataset.  Obtained from "test/y_train.txt"
+ 
+* **activitiesTest** : Contains the list of activities corresponding to test measurement part of the dataset.  Obtained from "test/y_test.txt"
+
+* **subjectTrain** : Contains the list of subjects corresponding to training measurement part of the dataset.  Obtained from "test/subject_train.txt"
+
+* **subjectTest** : Contains the list of subjects corresponding to test measurement part of the dataset.  Obtained from "test/subject_test.txt"  
+
+
+* **originDataTotal** : row bind of originDataTrain and originDataTest
+
+* **activitiesTotal** : row bind of activitiesTrain and activitiesTest
+
+* **subjectTotal** : row bind of subjectTrain and subjectTest  
+
+
+* **usefulColumnsId** : containts the columns ID of originDataTotal to extract, mean and standard deviation only.
+
+* **extractDataTotal** : extract of originDataTotal  
+
+
+* **labelledActivitiesTotal** : activitiesTotal with format descriptive labels.  
+
+
+* **usefulColumnsName** : extract of originDataColomnsNames corresponding to usefulColumnsId.
+
+* **finalDataSet** : column binding of extractDataTotal with appropriate variables names, labelledActivitiesTotal and  subjectTotal  
+
+
+* **averageDataSet** : independent tidy data set with the average of each variable for each activity and each subject. Obtained from finalDataSet.  
+
+******
+
+
+## C. Loading and preprocessing the data.
+
+### Library loading
+First of all, the needed libraries are loaded.
+
+```{r library_loading,echo=TRUE, message=FALSE, warning=FALSE}
+require(dplyr)
+library(dplyr)
+```
+
+### Useful data loading
+Then, all needed data are retrieved and stored for future usage.
+
+* Names of columns's Data and labels for activities.
+```{r data_loading_names_labels,echo=TRUE, message=FALSE, warning=FALSE}
+originDataColomnsNames <- read.table("features.txt", stringsAsFactors = FALSE)
+str(originDataColomnsNames)
+activitiesLabels <- read.table("activity_labels.txt", stringsAsFactors = FALSE)
+str(activitiesLabels)
+```
+* Data in original format split in two data.frames.
+```{r data_loading_original_data,echo=TRUE, message=FALSE, warning=FALSE}
+originDataTrain <- read.table("train/X_train.txt", stringsAsFactors = FALSE)
+str(originDataTrain, list.len = 10)
+originDataTest <- read.table("test/X_test.txt", stringsAsFactors = FALSE)
+str(originDataTest, list.len = 10)
+```
+* Activities linked to Data in original format. Split in two data.frames too.
+```{r data_loading_activities, echo=TRUE, message=FALSE, warning=FALSE}
+activitiesTrain <- read.table("train/y_train.txt", stringsAsFactors = FALSE)
+str(activitiesTrain)
+activitiesTest <- read.table("test/y_test.txt", stringsAsFactors = FALSE)
+str(activitiesTest)
+```
+* Subjects linked to Data in original format. Split in two data.frames too. 
+```{r data_loading_subjects,echo=TRUE, message=FALSE, warning=FALSE}
+subjectTest <- read.table("test/subject_test.txt", stringsAsFactors = FALSE)
+str(subjectTest)
+subjectTrain <- read.table("train/subject_train.txt", stringsAsFactors = FALSE)
+str(subjectTrain)
+```
+******
+
+
+## 1. Merges the training and the test sets to create one data set.
+
+At first, we apply rbind to test & training data to obtain only one data set 
+```{r data_binding,echo=TRUE, message=FALSE, warning=FALSE}
+originDataTotal <- rbind(originDataTrain, originDataTest)
+str(originDataTotal, list.len = 10)
+```
+
+Then, we do the same for other data (activites & subject) for future usage.
+```{r data_binding_future,echo=TRUE, message=FALSE, warning=FALSE}
+activitiesTotal <- rbind(activitiesTrain, activitiesTest)
+str(activitiesTotal)
+subjectTotal <- rbind(subjectTrain, subjectTest)
+str(subjectTotal)
+```
+******
+
+
+## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
+
+The first step here is to find the ID of the column that we want to extract.
+Then, just select them.
+
+```{r extract,echo=TRUE, message=FALSE, warning=FALSE}
+usefulColumnsId <- originDataColomnsNames$V1[grepl('mean\\(\\)|std\\(\\)', 
+                                                   originDataColomnsNames$V2)]
+extractDataTotal <- select(originDataTotal, usefulColumnsId)
+str(extractDataTotal, list.len = 10)
+```
+******
+
+
+## 3. Uses descriptive activity names to name the activities in the data set.
+
+We start by obtaining a vector containing labelled activities. This vector will be added in the future to the big data set.
+```{r activities_label,echo=TRUE, message=FALSE, warning=FALSE}
+labelledActivitiesTotal <- activitiesLabels$V2[activitiesTotal$V1]
+str(labelledActivitiesTotal)
+``` 
+******
+
+
+## 4. Appropriately labels the data set with descriptive variable names.
+
+In this part, we firstly rename appropriately the variables names.
+``` {r variables_label,echo=TRUE, message=FALSE, warning=FALSE}
+usefulColumnsName <- originDataColomnsNames$V2[usefulColumnsId]
+colnames(extractDataTotal) <- usefulColumnsName
+str(extractDataTotal, list.len = 10)
+```
+
+Then, we bind the 2 following columns : subject and labelled activities.
+``` {r activities_subject_binding,echo=TRUE, message=FALSE, warning=FALSE}
+extractDataTotal <- cbind(extractDataTotal, "subject" = subjectTotal$V1)
+finalDataSet <- cbind(extractDataTotal, "activity" = labelledActivitiesTotal)
+str(finalDataSet, list.len = 10)
+``` 
+******
+
+
+## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. Save the result in averageDataSet.txt
+
+By grouping by activities and subject, we can then easily apply mean function :
+``` {r averageDataSet,echo=TRUE, message=FALSE, warning=FALSE}
+averageDataSet <- finalDataSet %>%
+  group_by(activity, subject) %>%
+  summarise_each(funs(mean))
+str(averageDataSet, list.len = 10)
+```
+And finally we save it to the averageDataSet.txt
+``` {r save_file,echo=TRUE, message=FALSE, warning=FALSE}
+write.table(averageDataSet, "averageDataSet.txt", row.names = FALSE)
+```
+******
