@@ -103,3 +103,4 @@ averageDataSet <- finalDataSet %>%
   summarise_each(funs(mean))
 
 write.table(averageDataSet, "averageDataSet.txt", row.names = FALSE)
+write.table(averageDataSet, "averageDataSetNamed.txt", row.names = TRUE)
