@@ -52,6 +52,7 @@ subjectTrain <- read.table("train/subject_train.txt", stringsAsFactors = FALSE)
 ##
 
 originDataTotal <- rbind(originDataTrain, originDataTest)
+colnames(originDataTotal) <- originDataColomnsNames$V2
 activitiesTotal <- rbind(activitiesTrain, activitiesTest)
 subjectTotal <- rbind(subjectTrain, subjectTest)
 
@@ -59,13 +60,13 @@ subjectTotal <- rbind(subjectTrain, subjectTest)
 rm(originDataTrain, originDataTest) 
 rm(subjectTest, subjectTrain) 
 rm(activitiesTrain, activitiesTest) 
+rm(originDataColomnsNames)
 
 ##
 ##  2.Extracts only the measurements on the mean and standard deviation for each measurement.
 ##
 
-usefulColumnsId <- originDataColomnsNames$V1[grepl('mean\\(\\)|std\\(\\)', originDataColomnsNames$V2)]
-extractDataTotal <- select(originDataTotal, usefulColumnsId)
+extractDataTotal <- originDataTotal[ ,grepl('mean\\(\\)|std\\(\\)', colnames(originDataTotal))]
 
 ## remove not used anymore variables.
 rm(originDataTotal) 
@@ -85,14 +86,12 @@ rm(activitiesTotal, activitiesLabels)
 ##  4.Appropriately labels the data set with descriptive variable names.
 ## 
 
-usefulColumnsName <- originDataColomnsNames$V2[usefulColumnsId]
-colnames(extractDataTotal) <- usefulColumnsName
 extractDataTotal <- cbind(extractDataTotal, "subject" = subjectTotal$V1)
 finalDataSet <- cbind(extractDataTotal, "activity" = labelledActivitiesTotal)
 
 ## remove not used anymore variables.
 rm(extractDataTotal, labelledActivitiesTotal, subjectTotal)
-rm(originDataColomnsNames, usefulColumnsId, usefulColumnsName)
+
 
 
 ##
