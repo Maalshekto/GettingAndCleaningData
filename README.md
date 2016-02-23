@@ -10,26 +10,39 @@ Here, you will find the list of Files used through the project, unused files are
 
 ### Root directory 
 
-* README.md : this file.
+* [README.md][1] : this file.
 
-* CodeBook.md : a detailed description of the variables, data. 
+* [CodeBook.md][2] : a detailed description of the variables, data. 
 
-* features_info.txt: Shows information about the variables used on the feature vector.
-* features.txt: List of all features.
-* activity_labels.txt: Links the class labels with their activity name.
+* [features_info.txt][3]: Shows information about the variables used on the feature vector.
+* [features.txt][4]: List of all features.
+* [activity_labels.txt][5]: Links the class labels with their activity name.
 
-* run_analysis.R : contains the script to execute for performing data treatment. Result is stored in averageDataSet.txt
+* [run_analysis.R][6] : contains the script to execute for performing data treatment. Result is stored in averageDataSet.txt
 
-* averageDataSet.txt: Final result of the treatment of run_analysis.R 
+* [averageDataSet.txt][7]: Final result of the treatment of run_analysis.R 
+
+[1]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/README.md "README.md"
+[2]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/CodeBook.md "CodeBook.md"
+[3]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/features_info.txt "features_info.txt"
+[4]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/features.txt "features.txt"
+[5]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/activity_labels.txt "activity_labels.txt"
+[6]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/run_analysis.R "run_analysis.R"
+[7]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/averageDataSet.txt "averageDataSet.txt"
 
 ### Train directory
-* train/X_train.txt: Training set.
-* train/y_train.txt: Training labels.
+* [train/X_train.txt][8]: Training set.
+* [train/y_train.txt][9]: Training labels.
+
+[8]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/train/X_train.txt "train/X_train.txt"
+[9]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/train/y_train.txt "train/y_train.txt"
 
 ### Test directory
-* test/X_test.txt: Test set.
-* test/y_test.txt: Test labels.
+* [test/X_test.txt][10]: Test set.
+* [test/y_test.txt][11]: Test labels.
 
+[10]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/train/X_test.txt "train/X_test.txt"
+[11]: https://github.com/Maalshekto/GettingAndCleaningData/blob/master/train/y_test.txt "train/y_test.txt"
 ## B. Used variables and data.
 
 * **originDataColomnsNames** : Contains the column names of the dataset obtained from "features.txt"
